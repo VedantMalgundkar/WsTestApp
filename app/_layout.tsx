@@ -3,6 +3,7 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
+import Toast from 'react-native-toast-message'; // <-- import Toast
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -13,7 +14,6 @@ export default function RootLayout() {
   });
 
   if (!loaded) {
-    // Async font loading only occurs in development.
     return null;
   }
 
@@ -24,6 +24,9 @@ export default function RootLayout() {
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />
+
+      {/* Add Toast at the root so it can be used anywhere */}
+      <Toast />
     </ThemeProvider>
   );
 }
