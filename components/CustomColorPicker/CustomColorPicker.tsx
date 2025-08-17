@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -85,7 +85,7 @@ export default function Example() {
         const rgbColor = res.data.value.RGB;
         setResultColor(rgbToHex(rgbColor));
       }
-      console.log({ res });
+      // console.log({ res });
     } catch (error: any) {
       Toast.show({
         type: 'error',
@@ -161,7 +161,7 @@ export default function Example() {
           </TouchableOpacity>
         </View>
 
-        <Button title="fetch input" onPress={fetchCurrentInputSource} />
+        {/* <Button title="fetch input" onPress={fetchCurrentInputSource} /> */}
       </ColorPicker>
     </View>
   );
