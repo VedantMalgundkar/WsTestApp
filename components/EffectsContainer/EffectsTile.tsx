@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View, ViewStyle } from "react-native";
 
-type RainbowTileProps = {
+type EffectsTileProps = {
   title: string;
   isActive: boolean;
   onPress: () => void;
@@ -9,7 +9,7 @@ type RainbowTileProps = {
 };
 
 
-export default function RainbowTile({ title, isActive, onPress, style }: RainbowTileProps) {
+export default function EffectsTile({ title, isActive, onPress, style }: EffectsTileProps) {
   return (
     <View style={style}>
       <TouchableOpacity

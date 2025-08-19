@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from "axios";
 
 // Create an Axios instance
 const api = axios.create({
-  baseURL: "http://192.168.0.114:5000", // replace with your backend IP/port
+  baseURL: "http://192.168.0.204:5000", // replace with your backend IP/port
   timeout: 10000, // 10s timeout
   headers: {
     "Content-Type": "application/json",
@@ -36,7 +36,6 @@ export const request = async <T = any>(
   body?: any
 ): Promise<T> => {
   try {
-    console.log({body});
     const config: AxiosRequestConfig = { url, method, data: body };
     const res = await api(config);
     return res.data; // return only data

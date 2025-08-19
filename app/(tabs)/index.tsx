@@ -1,31 +1,21 @@
 import BrightnessSlider from "@/components/BrightnessSlider";
-import RainbowTile from "@/components/EffectsTile";
+import EffectTileContainer from "@/components/EffectsContainer/EffectsContainer";
+import { useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import CustomColorPicker from "../../components/CustomColorPicker/CustomColorPicker";
 
-const effects = [
-  { id: "1", title: "Effect 1", isActive: true },
-  { id: "2", title: "Effect 2", isActive: false },
-  { id: "3", title: "Effect 3", isActive: true },
-];
-
-
-
 export default function App() {
+  const[hasCleared,setHasCleared] = useState<boolean>(false);
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <BrightnessSlider />
-        <CustomColorPicker />
+        
+        <CustomColorPicker onColorClear={()=>setHasCleared((priv)=>!priv)}/>
 
-        {effects.map((item) => (
-          <RainbowTile
-            key={item.id}
-            title={item.title}
-            isActive={item.isActive}
-            onPress={() => console.log("Tapped:", item.title)}
-          />
-        ))}
+        <EffectTileContainer hasCleared={hasCleared}/>
+
       </ScrollView>
     </SafeAreaView>
   );

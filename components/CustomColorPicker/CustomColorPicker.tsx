@@ -9,10 +9,14 @@ import { applyColor, getCurrentActiveInput, stopEffect } from '../../services/ap
 import { colorPickerStyle } from './colorPickerStyle';
 import Divider from './Divider';
 
+type CustomColorPickerProps = {
+  onColorClear: () => void;
+};
+
 // generate 6 random colors for swatches
 const customSwatches = new Array(6).fill('#fff').map(() => colorKit.randomRgbColor().hex());
 
-export default function Example() {
+export default function Example({ onColorClear }: CustomColorPickerProps) {
   const [resultColor, setResultColor] = useState(customSwatches[0]);
 
   const currentColor = useSharedValue(customSwatches[0]);
@@ -101,6 +105,7 @@ export default function Example() {
     try {
       await stopEffect(100);
       setResultColor('#FFFFFF00');
+      onColorClear();
     } catch (error: any) {
       Toast.show({ type: 'error', text1: error.message ?? "failed to reset Led color/Effect", position: 'bottom' });
     }
