@@ -2,22 +2,25 @@ import BrightnessSlider from "@/components/BrightnessSlider";
 import EffectTileContainer from "@/components/EffectsContainer/EffectsContainer";
 import { useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import CustomColorPicker from "../../components/CustomColorPicker/CustomColorPicker";
 
 export default function App() {
   const[hasCleared,setHasCleared] = useState<boolean>(false);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <BrightnessSlider />
-        
-        <CustomColorPicker onColorClear={()=>setHasCleared((priv)=>!priv)}/>
+    <GestureHandlerRootView style={{flex : 1}}>
+      <SafeAreaView style={styles.container}>
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <BrightnessSlider />
+          
+          <CustomColorPicker onColorClearOrChange={()=>setHasCleared((priv)=>!priv)}/>
 
-        <EffectTileContainer hasCleared={hasCleared}/>
+          <EffectTileContainer hasCleared={hasCleared}/>
 
-      </ScrollView>
-    </SafeAreaView>
+        </ScrollView>
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 }
 

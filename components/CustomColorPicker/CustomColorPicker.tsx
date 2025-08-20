@@ -10,13 +10,13 @@ import { colorPickerStyle } from './colorPickerStyle';
 import Divider from './Divider';
 
 type CustomColorPickerProps = {
-  onColorClear: () => void;
+  onColorClearOrChange: () => void;
 };
 
 // generate 6 random colors for swatches
 const customSwatches = new Array(6).fill('#fff').map(() => colorKit.randomRgbColor().hex());
 
-export default function Example({ onColorClear }: CustomColorPickerProps) {
+export default function CustomColorPicker({ onColorClearOrChange }: CustomColorPickerProps) {
   const [resultColor, setResultColor] = useState(customSwatches[0]);
 
   const currentColor = useSharedValue(customSwatches[0]);
@@ -48,6 +48,7 @@ export default function Example({ onColorClear }: CustomColorPickerProps) {
   const callColorApi = async (rgbArray: number[]) => {
     try {
       const res = await applyColor(rgbArray);
+      onColorClearOrChange();
     } catch (error: any) {
       console.error("applyColor failed:", error);
 
@@ -105,7 +106,7 @@ export default function Example({ onColorClear }: CustomColorPickerProps) {
     try {
       await stopEffect(100);
       setResultColor('#FFFFFF00');
-      onColorClear();
+      onColorClearOrChange();
     } catch (error: any) {
       Toast.show({ type: 'error', text1: error.message ?? "failed to reset Led color/Effect", position: 'bottom' });
     }
@@ -123,51 +124,50 @@ export default function Example({ onColorClear }: CustomColorPickerProps) {
   }, []);
 
   return (
-    <View style={colorPickerStyle.pickerContainer}>
-      <ColorPicker
-        value={resultColor}
-        sliderThickness={20}
-        thumbSize={24}
-        onChange={onColorChange}
-        onCompleteJS={onColorPick}
-        style={colorPickerStyle.picker}
-        boundedThumb
-      >
-        <HueCircular containerStyle={{ justifyContent: 'center' }} thumbShape='pill'>
-          <Panel1 style={{ borderRadius: 16, width: '70%', height: '70%', alignSelf: 'center' }} />
-        </HueCircular>
-
-        <Divider />
-
-        <View
-          style={[
-            colorPickerStyle.swatchesContainer,
-            { justifyContent: 'space-between' },
-          ]}
+      <View style={colorPickerStyle.pickerContainer}>
+        <ColorPicker
+          value={resultColor}
+          sliderThickness={20}
+          thumbSize={24}
+          onChange={onColorChange}
+          onCompleteJS={onColorPick}
+          style={colorPickerStyle.picker}
+          boundedThumb
         >
-          {customSwatches.map((swatch, idx) => (
-            <TouchableOpacity
-              key={idx}
-              style={[
-                colorPickerStyle.swatchStyle,
-                { backgroundColor: swatch },
-              ]}
-              onPress={() => {
-                handleCustomSwatchePress(swatch);
-              }}
-            />
-          ))}
+          <HueCircular containerStyle={{ justifyContent: 'center' }} thumbShape='pill'>
+            <Panel1 style={{ borderRadius: 16, width: '70%', height: '70%', alignSelf: 'center' }} />
+          </HueCircular>
 
-          <TouchableOpacity
-            style={colorPickerStyle.crossButton}
-            onPress={handleClearColor}
+          <Divider />
+
+          <View
+            style={[
+              colorPickerStyle.swatchesContainer,
+              { justifyContent: 'space-between' },
+            ]}
           >
-            <Icon name="close" size={20} color="#000" />
-          </TouchableOpacity>
-        </View>
+            {customSwatches.map((swatch, idx) => (
+              <TouchableOpacity
+                key={idx}
+                style={[
+                  colorPickerStyle.swatchStyle,
+                  { backgroundColor: swatch },
+                ]}
+                onPress={() => {
+                  handleCustomSwatchePress(swatch);
+                }}
+              />
+            ))}
 
-        {/* <Button title="fetch input" onPress={fetchCurrentInputSource} /> */}
-      </ColorPicker>
-    </View>
+            <TouchableOpacity
+              style={colorPickerStyle.crossButton}
+              onPress={handleClearColor}
+            >
+              <Icon name="close" size={20} color="#000" />
+            </TouchableOpacity>
+          </View>
+
+        </ColorPicker>
+      </View>
   );
 }
