@@ -1,5 +1,6 @@
 import BrightnessSlider from "@/components/BrightnessSlider";
 import EffectTileContainer from "@/components/EffectsContainer/EffectsContainer";
+import InputSourceDashBoard from "@/components/InputSourceDashBoard";
 import { useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -13,6 +14,8 @@ export default function App() {
       <SafeAreaView style={styles.container}>
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <BrightnessSlider />
+
+          <InputSourceDashBoard />
           
           <CustomColorPicker onColorClearOrChange={()=>setHasCleared((priv)=>!priv)}/>
 
